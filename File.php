@@ -12,22 +12,12 @@ use yii\base\Component;
 
 abstract class File extends Component
 {
-    abstract function getFielUrl($filePath);
+    abstract public function saveFile($filePath);
 
-    abstract function fileExist($filePath);
+    abstract public function getFile($filePath);
 
-    abstract function getFile($filePath);
+    abstract public function getFileInfo($filePath);
 
-    abstract function getFileInfo($filePath);
-
-    abstract function saveFile($file);
-
-    abstract function getFileList($path);
-
-    abstract function createPath($pathName);
-
-    abstract function deletePath($pathName);
-
-    abstract function renamePath($oldPathName, $newPathName);
+    abstract public function deleteFile($filePath);
 
 }
