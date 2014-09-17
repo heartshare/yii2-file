@@ -9,15 +9,46 @@
 namespace iit\file;
 
 use yii\base\Component;
+use yii\base\InvalidParamException;
 
 abstract class File extends Component
 {
-    abstract public function saveFile($filePath);
+    private $_fileId;
 
-    abstract public function getFile($filePath);
+    public function putFile($filePath)
+    {
+        $this->_fileId = $this->put($filePath);
+        return $this->_fileId;
+    }
 
-    abstract public function getFileInfo($filePath);
+    abstract protected function put($filePath);
 
-    abstract public function deleteFile($filePath);
+    public function copyFile($fileId = null)
+    {
+        $fileId = $fileId === null ? $this->_fileId : $fileId;
+        if ($fileId === null) {
+            throw new InvalidParamException('Please Use putFile Method');
+        }
+        return $this->copy($fileId);
+    }
+
+    abstract protected function copy($fileId);
+
+    public function getFile($fileId = null)
+    {
+        $fileId = $fileId === null ? $this->_fileId : $fileId;
+        if ($fileId === null) {
+            throw new InvalidParamException('Please Use putFile Method');
+        }
+        return $this->get($fileId);
+    }
+
+    abstract protected function get($fileId);
+
+    public function getFileInfo()
+    {
+
+    }
+
 
 }
